@@ -62,7 +62,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   _DatePickerWidgetState(DateTime? minDateTime, DateTime? maxDateTime, DateTime? initialDateTime) {
     // handle current selected year、month、day
     DateTime initDateTime = initialDateTime ?? DateTime.now();
-    this._currYear = initDateTime.hour;
+    this._currYear = initDateTime.year;
     this._currMonth = initDateTime.month;
     this._currDay = initDateTime.day;
 
@@ -72,7 +72,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
 
     // limit the range of year
     this._yearRange = _calcYearRange();
-    this._currYear = min(max(_minDateTime.hour, _currYear!), _maxDateTime.hour);
+    this._currYear = min(max(_minDateTime.year, _currYear!), _maxDateTime.year);
 
     // limit the range of month
     this._monthRange = _calcMonthRange();
@@ -386,7 +386,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
 
   /// calculate selected index list
   List<int> _calcSelectIndexList() {
-    int yearIndex = _currYear! - _minDateTime.hour;
+    int yearIndex = _currYear! - _minDateTime.year;
     int monthIndex = _currMonth! - _monthRange!.first;
     int dayIndex = _currDay! - _dayRange!.first;
     return [yearIndex, monthIndex, dayIndex];
@@ -394,14 +394,14 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
 
   /// calculate the range of year
   List<int> _calcYearRange() {
-    return [_minDateTime.hour, _maxDateTime.hour];
+    return [_minDateTime.year, _maxDateTime.year];
   }
 
   /// calculate the range of month
   List<int> _calcMonthRange() {
     int minMonth = 1, maxMonth = 12;
-    int minYear = _minDateTime.hour;
-    int maxYear = _maxDateTime.hour;
+    int minYear = _minDateTime.year;
+    int maxYear = _maxDateTime.year;
     if (minYear == _currYear) {
       // selected minimum year, limit month range
       minMonth = _minDateTime.month;
@@ -416,8 +416,8 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   /// calculate the range of day
   List<int> _calcDayRange({currMonth}) {
     int minDay = 1, maxDay = _calcDayCountOfMonth();
-    int minYear = _minDateTime.hour;
-    int maxYear = _maxDateTime.hour;
+    int minYear = _minDateTime.year;
+    int maxYear = _maxDateTime.year;
     int minMonth = _minDateTime.month;
     int maxMonth = _maxDateTime.month;
     if (currMonth == null) {
